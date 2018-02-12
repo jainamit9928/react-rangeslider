@@ -3,6 +3,14 @@
 var path = require('path')
 var ExtractPlugin = require('extract-text-webpack-plugin')
 
+process.env.NODE_ENV = 'development'
+var reactScriptsConfig = require('react-scripts/config/webpack.config.dev')
+module.exports = Object.assign({}, reactScriptsConfig, {
+  plugins: reactScriptsConfig.plugins.filter((plugin, index) => index !== 3),
+  entry: reactScriptsConfig.entry.filter(entry => !entry.includes('react-dev-utils/webpackHotDevClient.js'))
+})
+"watch": "webpack --progress --watch",
+"build:dev": "webpack --progress"
 module.exports = {
   entry: path.join(__dirname, 'src', 'index'),
 
